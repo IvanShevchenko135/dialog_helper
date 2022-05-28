@@ -1,0 +1,9 @@
+**/*/node_modules/
+**/*.idea/
+**/*__pycache__/
+**/*.DS_Store
+
+/asr_model/dataset/
+/audio/**/*
+!/audio/transcript.txt
+/recognition/model.zip

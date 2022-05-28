@@ -1,0 +1,84 @@
+.Listener {
+    &-VisualizerContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    &-SpeakLabel {
+        font-family: 'Ac Line', Times, serif;
+        font-size: 80px;
+        color: #cc83ef;
+    }
+
+    &-SoundBar {
+        display: inline-block;
+
+        width: 18px;
+        height: 300px;
+
+        margin: 0 10px;
+
+        border-radius: 8px;
+        background: #cc83ef;
+
+        transform: scaleY(0.5);
+        opacity: 50%;
+    }
+
+    &-Transcript {
+        width: 80vw;
+        height: 30vh;
+
+        margin: 20px 0;
+
+        border-radius: 10px;
+        border: 1px solid #494949;
+
+        font-size: 24px;
+        text-align: center;
+        color: #fff;
+    }
+
+    &-Predictions {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    &-Prediction {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        width: 300px;
+        height: 100px;
+
+        border-radius: 10px;
+        border: 1px solid #494949;
+
+        font-size: 30px;
+        text-align: center;
+        color: #fff;
+
+        &:first-child {
+            width: 400px;
+            height: 130px;
+
+            border: 3px solid #cc83ef;
+
+            font-size: 35px;
+
+            .Listener-PredictionTranslation {
+                font-size: 30px;
+                opacity: 70%;
+            }
+        }
+
+        &Translation {
+            font-size: 25px;
+            opacity: 70%;
+        }
+    }
+}
