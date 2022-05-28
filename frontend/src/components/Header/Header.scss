@@ -1,0 +1,37 @@
+.Header {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: #cc83ef;
+
+    &-AppName {
+        height: 60px;
+        margin: 0 8px;
+
+        font-family: 'Ac Line', Times, serif;
+        font-size: 48px;
+
+        cursor: pointer;
+    }
+
+    &-Settings {
+        padding: 12px 24px;
+
+        color: #232222;
+        background-color: #cc83ef;
+
+        cursor: pointer;
+
+        &:hover {
+            color: #cc83ef;
+            background-color: #232222;
+        }
+
+        &Icon {
+            width: 36px;
+            height: 36px;
+        }
+    }
+}

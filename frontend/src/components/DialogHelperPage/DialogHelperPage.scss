@@ -1,0 +1,21 @@
+.DialogHelperPage {
+    display: flex;
+    flex-flow: column;
+
+    width: 100vw;
+    height: 100vh;
+
+    &-Content {
+        display: flex;
+        flex: 1 1 auto;
+
+        align-items: center;
+        justify-content: center;
+
+        background-color: #000;
+
+        &_state_inactive {
+
+        }
+    }
+}
