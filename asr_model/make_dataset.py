@@ -2,6 +2,9 @@ import csv
 import json
 import random
 
+import librosa
+import pandas as pd
+import soundfile as sf
 from progress.bar import IncrementalBar
 from pydub import AudioSegment
 
@@ -61,5 +64,28 @@ def make_dataset(file_path, save_path, json_name, limit=None):
     bar_jsons.finish()
 
 
+def downsample_audio(json_path, limit=None):
+    files = pd.read_json(json_path, lines=True)
+    length = len(files)
+
+    if not limit:
+        limit = length
+
+    bar_files = IncrementalBar('Files', max=min(limit, length))
+
+    i = 0
+    for file_path, _ in files.values:
+        y, s = librosa.load(file_path, sr=8000)
+        sf.write(file_path, y, s)
+
+        bar_files.next()
+        i = i + 1
+
+        if i >= limit: break
+
+    bar_files.finish()
+
+
 if __name__ == "__main__":
-    make_dataset('../../../../Downloads/en/train.tsv', 'dataset', 'train')
+    # make_dataset('../../../../Downloads/en/train.tsv', 'dataset', 'train')
+    downsample_audio('./dataset/train.json')
