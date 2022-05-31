@@ -7,3 +7,5 @@
 /audio/**/*
 !/audio/transcript.txt
 /recognition/model.zip
+/asr_model/best_models/**.*
+/asr_model/model_logs/automatic_speech_recognition/

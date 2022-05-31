@@ -57,8 +57,8 @@ class CommonVoiceDataset(Dataset):
 
             if spectrogram.shape[0] > 1:
                 raise Exception('Dual channel, skipping audio file %s' % file_path)
-            if spectrogram.shape[2] > 1650:
-                raise Exception('Spectrogram is too big. Size: %s' % spectrogram.shape[2])
+            # if spectrogram.shape[2] > 1650:
+            #     raise Exception('Spectrogram is too big. Size: %s' % spectrogram.shape[2])
             if label_len == 0:
                 raise Exception('No text in file: %s' % file_path)
         except Exception as e:

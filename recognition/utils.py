@@ -43,7 +43,7 @@ class SpecAugment(nn.Module):
         probability = torch.rand(1, 1).item()
 
         if self.rate > probability:
-            return self.specaug(x)
+            return self.specaugment(x)
 
         return x
 
@@ -51,7 +51,7 @@ class SpecAugment(nn.Module):
         probability = torch.rand(1, 1).item()
 
         if self.rate > probability:
-            return self.specaug2(x)
+            return self.specaugment2(x)
 
         return x
 
