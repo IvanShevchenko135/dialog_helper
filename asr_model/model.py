@@ -60,13 +60,13 @@ class SpeechRecognition(nn.Module):
 
         x = x.transpose(0, 1)
 
-        out, (hn, cn) = self.lstm(x, hidden)
+        out, (hidden_state, cell_state) = self.lstm(x, hidden)
         x = self.layer_norm2(out)
         x = F.gelu(x)
         x = self.dropout2(x)
 
-        return self.final_distribution(x), (hn, cn)
+        return self.final_distribution(x), (hidden_state, cell_state)
 
-    def _init_hidden_state(self, batch_size):
+    def init_hidden(self, batch_size):
         return (torch.zeros(self.num_layers * 1, batch_size, self.hidden_size),
                 torch.zeros(self.num_layers * 1, batch_size, self.hidden_size))

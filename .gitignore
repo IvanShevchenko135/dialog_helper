@@ -3,9 +3,16 @@
 **/*__pycache__/
 **/*.DS_Store
 
-/asr_model/dataset/
+/asr_model/common_voice/**/*
+/asr_model/best_models/**/*
+/asr_model/model_logs/**/*
+
+/asr_model/dataset/clips/**/*
+/asr_model/dataset/train.json
+/asr_model/dataset/valid.json
+
+
 /audio/**/*
 !/audio/transcript.txt
+
 /recognition/model.zip
-/asr_model/best_models/**.*
-/asr_model/model_logs/automatic_speech_recognition/

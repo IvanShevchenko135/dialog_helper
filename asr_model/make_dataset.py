@@ -1,15 +1,16 @@
 import csv
 import json
 import random
+import warnings
 
 import librosa
-import pandas as pd
 import soundfile as sf
 from progress.bar import IncrementalBar
-from pydub import AudioSegment
+
+warnings.filterwarnings('ignore', 'PySoundFile failed. Trying audioread instead.')
 
 
-def make_dataset(file_path, save_path, json_name, limit=None):
+def make_dataset(file_path, save_path, json_name, downsample_to=None, limit=None):
     data = []
     directory = file_path.rpartition('/')[0]
 
@@ -26,21 +27,21 @@ def make_dataset(file_path, save_path, json_name, limit=None):
         reader = csv.DictReader(f, delimiter='\t')
         index = 1
         for row in reader:
-            filename_old = row['path'] + ".mp3"
-            filename_new = row['path'] + ".wav"
+            filename_old = row['path'] + '.mp3'
+            filename_new = row['path'] + '.wav'
 
             text = row['sentence']
 
             data.append({
-                "key": save_path + "/clips/" + filename_new,
-                "text": text
+                'key': save_path + '/clips/' + filename_new,
+                'text': text
             })
 
-            src = directory + "/clips/" + filename_old
-            dst = save_path + "/clips/" + filename_new
+            src = directory + '/clips/' + filename_old
+            dst = save_path + '/clips/' + filename_new
 
-            sound = AudioSegment.from_mp3(src)
-            sound.export(dst, format="wav")
+            sound, sample_rate = librosa.load(src, sr=downsample_to)
+            sf.write(dst, sound, sample_rate)
 
             bar_files.next()
 
@@ -52,40 +53,17 @@ def make_dataset(file_path, save_path, json_name, limit=None):
     bar_files.finish()
     random.shuffle(data)
 
-    with open(save_path + "/" + json_name + '.json', 'w+') as f:
+    with open(save_path + '/' + json_name + '.json', 'w+') as f:
         i = 0
         while i <= limit and i < len(data):
             current = data[i]
             line = json.dumps(current)
-            f.write(line + "\n")
+            f.write(line + '\n')
             bar_jsons.next()
             i = i + 1
 
     bar_jsons.finish()
 
 
-def downsample_audio(json_path, limit=None):
-    files = pd.read_json(json_path, lines=True)
-    length = len(files)
-
-    if not limit:
-        limit = length
-
-    bar_files = IncrementalBar('Files', max=min(limit, length))
-
-    i = 0
-    for file_path, _ in files.values:
-        y, s = librosa.load(file_path, sr=8000)
-        sf.write(file_path, y, s)
-
-        bar_files.next()
-        i = i + 1
-
-        if i >= limit: break
-
-    bar_files.finish()
-
-
-if __name__ == "__main__":
-    # make_dataset('../../../../Downloads/en/train.tsv', 'dataset', 'train')
-    downsample_audio('./dataset/train.json')
+if __name__ == '__main__':
+    make_dataset('../../../../Downloads/en/test.tsv', 'dataset', 'valid', downsample_to=8000, limit=5)
