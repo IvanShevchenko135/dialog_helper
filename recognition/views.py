@@ -7,6 +7,7 @@ from .utils import load_prediction_model, translator
 TRANSCRIPT_FILE_NAME = 'audio/transcript.txt'
 
 gpt2 = load_prediction_model()
+# translator = load_translator()
 stop_words = set(stopwords.words('english'))
 
 

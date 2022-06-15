@@ -3,8 +3,10 @@ import streamlit as st
 import torch
 import torch.nn as nn
 import torchaudio
-from deep_translator import GoogleTranslator
 from next_word_prediction import GPT2
+from deep_translator import GoogleTranslator
+
+# from .translator import Translator
 
 
 @st.cache(hash_funcs={GPT2: lambda _: None})
@@ -15,6 +17,9 @@ def load_prediction_model():
 @st.cache(hash_funcs={GoogleTranslator: lambda _: None})
 def translator(to_translate):
     return GoogleTranslator(source='en', target='ru').translate(to_translate)
+
+# def load_translator():
+#     return Translator('English', 'Russian')
 
 
 class SpecAugment(nn.Module):

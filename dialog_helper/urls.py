@@ -16,8 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+TRANSCRIPT_FILE_NAME = 'audio/transcript.txt'
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recognition.urls')),
     path('', include('frontend.urls')),
 ]
+
+with open(TRANSCRIPT_FILE_NAME, 'w') as f:
+    f.write('')
+
+print("CLEAR")
