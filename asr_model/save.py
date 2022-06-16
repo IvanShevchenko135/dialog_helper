@@ -1,4 +1,5 @@
 """Freezes and optimize the model. Use after training."""
+import argparse
 from collections import OrderedDict
 
 import torch
@@ -49,4 +50,9 @@ def save_model(checkpoint_path, save_to):
 
 
 if __name__ == "__main__":
-    save_model('./best_models/asr_model-epoch=50.ckpt', '../recognition/model.zip')
+    parser = argparse.ArgumentParser(description='Saving model')
+    parser.add_argument('--model_path', type=str, help='Path to best checkpoint', required=True)
+    parser.add_argument('--save_to', type=str, help='Path to save the model', required=True)
+    args = parser.parse_args()
+
+    save_model(args.model_path, args.save_to)

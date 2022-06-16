@@ -1,3 +1,4 @@
+import argparse
 import csv
 import json
 import random
@@ -66,4 +67,12 @@ def make_dataset(file_path, save_path, json_name, downsample_to=None, limit=None
 
 
 if __name__ == '__main__':
-    make_dataset('../../../../Downloads/en/test.tsv', 'dataset', 'valid', downsample_to=8000, limit=5)
+    parser = argparse.ArgumentParser(description='Preparing dataset')
+    parser.add_argument('--file_path', type=str, help='Path to tsv file', default='../../../../Downloads/en/test.tsv')
+    parser.add_argument('--save_path', type=str, help='Path where JSON file will be saved', default='dataset')
+    parser.add_argument('--json_name', type=str, help='Name of save JSON file', default='valid')
+    parser.add_argument('--downsample_to', type=int, help='Output Sample Rate', default=8000)
+    parser.add_argument('--limit', type=int, help='Limit for processing files', default=5)  # for testing script
+    args = parser.parse_args()
+
+    make_dataset(**vars(args))

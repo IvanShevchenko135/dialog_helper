@@ -2,10 +2,9 @@ import pandas as pd
 import torch
 import torch.nn as nn
 import torchaudio
+from recognition.decoder import TextProcess
+from recognition.utils import LogMelSpectrogram, SpecAugment
 from torch.utils.data import Dataset
-
-from dialog_helper.recognition.decoder import TextProcess
-from dialog_helper.recognition.utils import LogMelSpectrogram, SpecAugment
 
 VALID_PATH = './dataset/valid.json'
 TRAIN_PATH = './dataset/train.json'

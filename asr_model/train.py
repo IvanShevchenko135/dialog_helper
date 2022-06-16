@@ -1,3 +1,5 @@
+import argparse
+
 import pytorch_lightning as pl
 import torch
 import torch.nn as nn
@@ -108,7 +110,11 @@ class ASRNuralNetwork(pl.LightningModule):
 
 
 if __name__ == '__main__':
-    model_path = 'best_models/asr_model-epoch=50.ckpt'
+    parser = argparse.ArgumentParser(description='Training model')
+    parser.add_argument('--model_path', type=str, help='Path to latest checkpoint', default=None)
+    args = parser.parse_args()
+
+    model_path = args.model_path
     model = SpeechRecognition(**model_hyper_parameters)
 
     if model_path:
